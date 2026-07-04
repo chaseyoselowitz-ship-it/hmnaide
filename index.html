@@ -1,33 +1,403 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chase Yoselowitz</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kinetic | System</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Playfair+Display:wght@500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
   <style>
-    :root { --ink: #14110f; --paper: #f6f3ee; --accent: #c2461d; }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background: var(--paper); color: var(--ink);
-      min-height: 100vh; display: grid; place-items: center; padding: 2rem;
-      line-height: 1.5;
+    :root {
+      --orange: #F4531E;
+      --black: #111111;
+      --border-thickness: 1.5px;
+
+      --font-serif: 'Playfair Display', serif;
+      --font-mono: 'Space Mono', monospace;
+      --font-sans: 'Inter', sans-serif;
     }
-    main { max-width: 40rem; text-align: center; }
-    .kicker { text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.8rem; color: var(--accent); font-weight: 700; }
-    h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); margin: 0.6rem 0 1rem; letter-spacing: -0.02em; }
-    p { font-size: 1.15rem; color: #4a433d; }
-    .cta { display: inline-block; margin-top: 2rem; padding: 0.8rem 1.6rem; background: var(--ink); color: var(--paper); text-decoration: none; border-radius: 999px; font-weight: 600; }
-    footer { margin-top: 3rem; font-size: 0.85rem; color: #8a827b; }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--black);
+      color: var(--black);
+      font-family: var(--font-serif);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== System frame (3-column grid) ===== */
+    .system-frame {
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--orange);
+      display: grid;
+      grid-template-columns: 2fr 3fr 3fr;
+      border: 8px solid var(--black);
+    }
+
+    /* ===== Left panel ===== */
+    .panel-left {
+      border-right: var(--border-thickness) solid var(--black);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .brand-vertical {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      transform: scale(-1);
+    }
+
+    .massive-display {
+      position: absolute;
+      top: -5%;
+      left: -15%;
+      font-family: var(--font-sans);
+      font-weight: 900;
+      font-size: 45vh;
+      line-height: 0.75;
+      color: var(--black);
+      writing-mode: vertical-rl;
+      letter-spacing: -1vw;
+      user-select: none;
+    }
+
+    .base-protocol-line {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: var(--border-thickness);
+      background-color: var(--black);
+    }
+
+    .base-protocol-label {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-serif);
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    /* ===== Center panel ===== */
+    .panel-center {
+      border-right: var(--border-thickness) solid var(--black);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: var(--black);
+    }
+
+    .photo-container {
+      height: 60%;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(130%) brightness(0.9);
+      object-position: center top;
+    }
+
+    .geo-mask {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 45%;
+      z-index: 10;
+    }
+
+    .geo-mask svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .info-zone {
+      height: 40%;
+      background-color: var(--orange);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 40px;
+    }
+
+    .coords-left, .coords-right {
+      position: absolute;
+      top: 20%;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 3px;
+      writing-mode: vertical-rl;
+    }
+
+    .coords-left { left: 30px; transform: scale(-1); }
+    .coords-right { right: 30px; }
+
+    .protocol-index {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      margin-bottom: 10px;
+    }
+
+    .protocol-title {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .protocol-meta {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .line-indicator {
+      width: 80px;
+      height: var(--border-thickness);
+      background-color: var(--black);
+      margin-top: 20px;
+    }
+
+    /* ===== Right panel ===== */
+    .panel-right {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--orange);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      padding: 30px 40px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-bottom: var(--border-thickness) solid var(--black);
+    }
+
+    .header-top .brand-name {
+      font-weight: 700;
+    }
+
+    .section-label {
+      padding: 50px 40px 30px 40px;
+      font-family: var(--font-serif);
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .index-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .index-item {
+      display: flex;
+      align-items: center;
+      padding: 22px 40px;
+      border-bottom: var(--border-thickness) solid var(--black);
+      cursor: pointer;
+      transition: all 0.1s ease;
+    }
+
+    .index-item:hover {
+      background-color: var(--black);
+      color: var(--orange);
+    }
+
+    .index-item.selected {
+      background-color: var(--black);
+      color: var(--orange);
+    }
+
+    .index-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      width: 40px;
+      opacity: 0.7;
+    }
+
+    .index-name {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .index-item:last-child {
+      border-bottom: none;
+    }
+
+    .panel-right .bottom-cap {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      border-top: var(--border-thickness) solid var(--black);
+      margin-top: auto;
+    }
+
+    .bottom-cap-line {
+      width: 100px;
+      height: 4px;
+      background-color: var(--black);
+      border-radius: 2px;
+    }
   </style>
 </head>
 <body>
-  <main>
-    <p class="kicker">Coming Soon</p>
-    <h1>This is your website.</h1>
-    <p>It's live on the internet, and you can change anything on it just by asking Claude. Tell Claude what you want here — your story, your services, a way to get in touch — and it will update this page.</p>
-    <a class="cta" href="mailto:chaseyoselowitz@gmail.com">Get in touch</a>
-    <footer>Built with Claude Code · Deployed on Vercel</footer>
-  </main>
+
+  <div class="system-frame">
+
+    <!-- ===== Left panel ===== -->
+    <div class="panel-left">
+      <div class="massive-display">V-O2</div>
+      <div class="brand-vertical">SYS. KINETIC ARCHITECTURE</div>
+      <div class="base-protocol-line"></div>
+      <div class="base-protocol-label">BASE PROTOCOL</div>
+    </div>
+
+    <!-- ===== Center panel ===== -->
+    <div class="panel-center">
+      <div class="photo-container">
+        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=2069&auto=format&fit=crop" alt="Structural Running Track Lines" />
+
+        <div class="geo-mask">
+          <svg viewBox="0 0 400 200" preserveAspectRatio="none">
+            <path d="M 0,100
+                     C 100,200 180,200 200,200
+                     C 220,200 300,200 400,100
+                     L 400,200 L 0,200 Z" fill="#F4531E"></path>
+
+            <path d="M 40,90 C 100,160 160,180 185,185" fill="none" stroke="#111111" stroke-width="1.5"></path>
+            <polygon points="40,90 48,100 32,95" fill="#111111"></polygon>
+
+            <path d="M 360,90 C 300,160 240,180 215,185" fill="none" stroke="#111111" stroke-width="1.5"></path>
+            <polygon points="360,90 352,100 368,95" fill="#111111"></polygon>
+          </svg>
+        </div>
+      </div>
+
+      <div class="info-zone">
+        <div class="coords-left">40°45'29"N</div>
+        <div class="coords-right">74°00'06"W</div>
+
+        <div class="protocol-index" id="protocol-index">04</div>
+        <div class="protocol-title" id="protocol-title">HYPERTROPHY, STRESS</div>
+        <div class="protocol-meta" id="protocol-meta">Tension: 85% 1RM &nbsp;|&nbsp; Rest: 120s</div>
+
+        <div class="line-indicator"></div>
+      </div>
+    </div>
+
+    <!-- ===== Right panel ===== -->
+    <div class="panel-right">
+      <div class="header-top">
+        <span class="brand-name">KINETIC</span>
+        <span>SYSTEM STATUS: OPTIMAL</span>
+      </div>
+
+      <div class="section-label">Select Protocol</div>
+
+      <ul class="index-list">
+        <li class="index-item" data-index="01" data-title="AEROBIC CAPACITY" data-meta="VO2 Max: 90% &nbsp;|&nbsp; Rest: 45s">
+          <span class="index-num">01</span>
+          <span class="index-name">AEROBIC CAPACITY</span>
+        </li>
+        <li class="index-item" data-index="02" data-title="ANAEROBIC THRESHOLD" data-meta="Lactate: 4 mmol &nbsp;|&nbsp; Rest: 60s">
+          <span class="index-num">02</span>
+          <span class="index-name">ANAEROBIC THRESHOLD</span>
+        </li>
+        <li class="index-item" data-index="03" data-title="NEURAL DRIVE" data-meta="Intensity: 95% 1RM &nbsp;|&nbsp; Rest: 180s">
+          <span class="index-num">03</span>
+          <span class="index-name">NEURAL DRIVE</span>
+        </li>
+        <li class="index-item selected" data-index="04" data-title="HYPERTROPHY, STRESS" data-meta="Tension: 85% 1RM &nbsp;|&nbsp; Rest: 120s">
+          <span class="index-num">04</span>
+          <span class="index-name">HYPERTROPHY, STRESS</span>
+        </li>
+        <li class="index-item" data-index="05" data-title="MECHANICAL TENSION" data-meta="Load: 80% 1RM &nbsp;|&nbsp; Rest: 90s">
+          <span class="index-num">05</span>
+          <span class="index-name">MECHANICAL TENSION</span>
+        </li>
+        <li class="index-item" data-index="06" data-title="KINETIC CHAIN" data-meta="Velocity: 0.8 m/s &nbsp;|&nbsp; Rest: 75s">
+          <span class="index-num">06</span>
+          <span class="index-name">KINETIC CHAIN</span>
+        </li>
+        <li class="index-item" data-index="07" data-title="RECOVERY SEQUENCE" data-meta="HRV Zone: 1 &nbsp;|&nbsp; Rest: 240s">
+          <span class="index-num">07</span>
+          <span class="index-name">RECOVERY SEQUENCE</span>
+        </li>
+      </ul>
+
+      <div class="bottom-cap">
+        <div class="bottom-cap-line"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Select Protocol — clicking an item updates the center info panel.
+    const items = document.querySelectorAll('.index-item');
+    const idxEl = document.getElementById('protocol-index');
+    const titleEl = document.getElementById('protocol-title');
+    const metaEl = document.getElementById('protocol-meta');
+
+    items.forEach((item) => {
+      item.addEventListener('click', () => {
+        items.forEach((i) => i.classList.remove('selected'));
+        item.classList.add('selected');
+        idxEl.textContent = item.dataset.index;
+        titleEl.textContent = item.dataset.title;
+        metaEl.innerHTML = item.dataset.meta;
+      });
+    });
+  </script>
+
 </body>
 </html>
